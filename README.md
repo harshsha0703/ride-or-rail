@@ -10,10 +10,8 @@ We mine the City of Chicago's full record of rideshare (Transportation Network P
 
 | Name | NetID | Role |
 | --- | --- | --- |
-| [Student 1] | [netid1] | Scrum Master, data ingestion |
-| [Student 2] | [netid2] | Data engineering |
-| [Student 3] | [netid3] | Mining and modeling |
-| [Student 4] | [netid4] | Visualization and dashboard |
+| Harsh Shah | hshah82 | Scrum Master, data ingestion and engineering |
+| Dharmik Patel | dpate497 | Mining, modeling and dashboard |
 
 ## Links
 
