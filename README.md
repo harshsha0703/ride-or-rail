@@ -12,6 +12,7 @@ We're using the City of Chicago's rideshare trip data (every TNP trip since Nov 
 | --- | --- | --- | --- |
 | Harsh Shah | hshah82 | harshsha0703 | Data ingestion + engineering, Scrum Master |
 | Dharmik Patel | dpate497 | dpate246 | Mining, modeling, dashboard |
+| Yousuf Hussain | shuss26 | Yousufhussain05 | Supporting datasets, EDA charts, docs and slides |
 
 Project board: https://github.com/users/harshsha0703/projects/3
 Teamwork agreement: linked in our proposal slides.
