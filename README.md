@@ -1,65 +1,64 @@
 # Ride or Rail?
 
-**CS 483 Big Data Mining, Fall 2026 (UIC) · Team Loop Miners**
+CS 483 (Big Data Mining), Fall 2026, UIC. Team Loop Miners.
 
-When and where do Chicagoans choose rideshare over the CTA, and which neighborhoods does transit leave behind?
+**Question:** When and where do people in Chicago take an Uber/Lyft instead of the CTA, and which neighborhoods are underserved by transit?
 
-We mine the City of Chicago's full record of rideshare (Transportation Network Provider) trips, about 500 million trips and roughly 100 GB, together with CTA ridership, NOAA weather and Census data. The end product is an interactive dashboard with a transit-gap score for each of Chicago's 77 community areas and a model that forecasts rideshare demand by hour.
+We're using the City of Chicago's rideshare trip data (every TNP trip since Nov 2018, roughly 500M rows / ~100 GB) along with CTA ridership, NOAA weather, and Census ACS data. The plan is to end up with a transit-gap score for each of the 77 community areas, a model that predicts rideshare demand by hour, and a dashboard to explore the results.
 
 ## Team
 
-| Name | NetID | Role |
-| --- | --- | --- |
-| Harsh Shah | hshah82 | Scrum Master, data ingestion and engineering |
-| Dharmik Patel | dpate497 | Mining, modeling and dashboard |
+| Name | NetID | GitHub | Focus |
+| --- | --- | --- | --- |
+| Harsh Shah | hshah82 | harshsha0703 | Data ingestion + engineering, Scrum Master |
+| Dharmik Patel | dpate497 | dpate246 | Mining, modeling, dashboard |
 
-## Links
+Project board: https://github.com/users/harshsha0703/projects/3
+Teamwork agreement: linked in our proposal slides.
 
-- Project board: [GitHub Projects link]
-- Teamwork agreement: [link]
-- Proposal deck: [link]
-
-## Repository layout
+## Repo layout
 
 ```
-data/           local data (git-ignored); see data/README.md for sources
-src/ingest/     download and CSV-to-Parquet conversion
-src/features/   joins and feature engineering (tract x hour)
-src/mining/     clustering, frequent patterns, demand model
-dashboard/      Plotly Dash app
-notebooks/      exploration and reports
-docs/           milestone reports and slides
+data/           local data, not committed (sources listed in data/README.md)
+src/ingest/     downloading + CSV -> Parquet
+src/features/   joins / features at tract x hour level
+src/mining/     clustering, FP-Growth, demand model
+dashboard/      Dash app
+notebooks/      EDA and analysis
+docs/           reports and slides
 ```
 
-## Getting started
+## Setup
 
 ```bash
 python -m venv .venv
-source .venv/bin/activate        # Windows: .venv\Scripts\activate
+source .venv/bin/activate
 pip install -r requirements.txt
-
-# 1. Download the rideshare trips (large: ~100 GB, run on a machine with space)
-python src/ingest/download_tnp.py --out data/raw/tnp
-
-# 2. Convert CSV to Parquet with Spark
-spark-submit src/ingest/to_parquet.py --input data/raw/tnp --output data/parquet/tnp
 ```
 
-To try the pipeline quickly, download a small slice first:
+Download a small sample first to test things (1M rows per table):
 
 ```bash
 python src/ingest/download_tnp.py --out data/raw/tnp_sample --limit 1000000
+spark-submit src/ingest/to_parquet.py --input data/raw/tnp_sample --output data/parquet/tnp_sample
 ```
 
-## How we work
+Full download (~100 GB, takes a while):
 
-Agile (Scrum), 2-week sprints. Every change goes through an issue on the board and a pull request reviewed by one teammate. Branch names: `<netid>/<issue-number>-short-name`. Never commit data files or credentials.
+```bash
+python src/ingest/download_tnp.py --out data/raw/tnp
+spark-submit src/ingest/to_parquet.py --input data/raw/tnp --output data/parquet/tnp
+```
+
+## Workflow
+
+We're doing 2-week sprints. Each task is an issue on the board; work happens on a branch (`netid/issue#-short-name`) and gets merged through a PR that the other person reviews. Don't commit data or keys.
 
 ## Milestones
 
-| Date | Milestone | Deliverable |
-| --- | --- | --- |
-| Oct 30 | Data ready | All datasets as Parquet, data-quality report, EDA notebook |
-| Nov 13 | Patterns found | Clustering and frequent-route mining on full data, findings memo |
-| Nov 27 | Model + prototype | Demand model with metrics, transit-gap scores, dashboard v1 |
-| Dec 8 | Final delivery | Final dashboard, report, presentation and demo |
+| Due | Milestone |
+| --- | --- |
+| Oct 30 (Wk 10) | Data loaded as Parquet, data-quality check, EDA notebook |
+| Nov 20 (Wk 13) | Intermediate report: clustering + frequent routes on full data, first model |
+| Nov 30 (Wk 15) | Presentation: transit-gap scores, model, working dashboard |
+| Dec 11 (Wk 16) | Final report |

@@ -1,12 +1,8 @@
-"""Download Chicago rideshare (TNP) trip data from the City of Chicago Data Portal.
+"""Download the Chicago TNP (rideshare) trips tables from the city data portal.
 
-Full download (all three tables, ~100 GB total):
-    python src/ingest/download_tnp.py --out data/raw/tnp
-
-Small sample for testing (first N rows of each table, via the SODA API):
+    python src/ingest/download_tnp.py --out data/raw/tnp                 # everything, ~100 GB
     python src/ingest/download_tnp.py --out data/raw/tnp_sample --limit 1000000
-
-Only the tables you name are downloaded if you pass --tables, e.g. --tables 2025.
+    python src/ingest/download_tnp.py --out data/raw/tnp --tables 2025   # just one table
 """
 
 import argparse
@@ -29,14 +25,13 @@ CHUNK = 8 * 1024 * 1024  # 8 MB
 
 def url_for(dataset_id: str, limit: int | None) -> str:
     if limit:
-        # SODA endpoint supports $limit; good for samples.
+        # API endpoint, used for samples
         return f"{BASE}/resource/{dataset_id}.csv?$limit={limit}"
-    # Bulk export of the whole table.
     return f"{BASE}/api/views/{dataset_id}/rows.csv?accessType=DOWNLOAD"
 
 
 def download(url: str, dest: Path, retries: int = 5) -> None:
-    """Stream a URL to disk, resuming from a partial file when the server allows it."""
+    # resumes from the .part file if the server supports range requests
     tmp = dest.with_suffix(dest.suffix + ".part")
     for attempt in range(1, retries + 1):
         start = tmp.stat().st_size if tmp.exists() else 0

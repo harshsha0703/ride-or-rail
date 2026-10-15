@@ -25,7 +25,7 @@ City of Chicago Data Portal, "Transportation Network Providers - Trips". The cit
 | NOAA daily weather (O'Hare, Midway) | https://www.ncei.noaa.gov/cdo-web/ (Daily Summaries) | Weather features |
 | Census ACS 5-year (income, car ownership by tract) | https://data.census.gov or the Census API | Equity features |
 
-Record the exact dataset id and download date for each file in the table below when you get it.
+Log each file here when you download it.
 
 | File | Source id | Downloaded on | By |
 | --- | --- | --- | --- |

@@ -2,8 +2,8 @@
 
     spark-submit src/ingest/to_parquet.py --input data/raw/tnp --output data/parquet/tnp
 
-Columns are renamed to snake_case, timestamps parsed, and the data is
-partitioned by year and month so later jobs read only what they need.
+Renames columns to snake_case, parses the timestamps, and partitions by
+year/month so later jobs don't have to scan everything.
 """
 
 import argparse
@@ -33,10 +33,13 @@ def main() -> None:
 
     for c in TIMESTAMP_COLS:
         if c in df.columns:
-            # Bulk exports use "MM/dd/yyyy hh:mm:ss a"; SODA samples use ISO format.
+            # bulk export uses "MM/dd/yyyy hh:mm:ss a", the API sample uses ISO
             df = df.withColumn(
                 c,
-                F.coalesce(F.to_timestamp(c, TS_FORMAT), F.to_timestamp(c)),
+                F.coalesce(
+                    F.try_to_timestamp(F.col(c), F.lit(TS_FORMAT)),
+                    F.try_to_timestamp(F.col(c)),
+                ),
             )
 
     df = (
