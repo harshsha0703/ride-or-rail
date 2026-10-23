@@ -37,7 +37,7 @@ def download(url: str, dest: Path, retries: int = 5) -> None:
         start = tmp.stat().st_size if tmp.exists() else 0
         headers = {"Range": f"bytes={start}-"} if start else {}
         try:
-            with requests.get(url, stream=True, headers=headers, timeout=120) as r:
+            with requests.get(url, stream=True, headers=headers, timeout=(30, 900)) as r:
                 if r.status_code == 416:  # already complete
                     break
                 r.raise_for_status()
