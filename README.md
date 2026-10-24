@@ -35,6 +35,13 @@ docs/           reports and slides
 python -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
+
+
+Install Java (brew install openjdk@17)
+Create the venv and pip install -r requirements.txt
+if which spark-submit doesn’t point to .venv, run unset SPARK_HOME (another Spark install was overriding ours)
+Test with a 200k-row sample (the two commands you ran)
+
 ```
 
 Download a small sample first to test things (1M rows per table):
