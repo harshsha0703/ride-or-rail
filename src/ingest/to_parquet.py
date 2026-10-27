@@ -5,12 +5,20 @@
 Renames columns to snake_case, parses the timestamps, and partitions by
 year/month so later jobs don't have to scan everything.
 """
-
+import glob
+import os
 import argparse
 import re
 
 from pyspark.sql import SparkSession
 from pyspark.sql import functions as F
+
+INT_COLS = ["trip_seconds", "trips_pooled", "pickup_community_area", "dropoff_community_area"]
+DOUBLE_COLS = ["trip_miles", "percent_time_chicago", "percent_distance_chicago",
+               "fare", "tip", "additional_charges", "trip_total",
+               "pickup_centroid_latitude", "pickup_centroid_longitude",
+               "dropoff_centroid_latitude", "dropoff_centroid_longitude"]
+
 
 TS_FORMAT = "MM/dd/yyyy hh:mm:ss a"
 TIMESTAMP_COLS = ["trip_start_timestamp", "trip_end_timestamp"]
@@ -28,8 +36,17 @@ def main() -> None:
 
     spark = SparkSession.builder.appName("tnp-to-parquet").getOrCreate()
 
-    df = spark.read.option("header", True).csv(f"{args.input}/tnp_trips_*.csv")
-    df = df.toDF(*[snake(c) for c in df.columns])
+    files = sorted(glob.glob(os.path.join(args.input, "tnp_trips_*.csv")))
+    if not files:
+        raise SystemExit(f"No tnp_trips_*.csv files in {args.input}")
+
+    df = None
+    for path in files:
+        part = spark.read.option("header", True).csv(path)
+        part = part.toDF(*[snake(c) for c in part.columns])
+        print(f"{os.path.basename(path)}: {len(part.columns)} columns")
+        # combine by column name; columns missing in one file become null
+        df = part if df is None else df.unionByName(part, allowMissingColumns=True)
 
     for c in TIMESTAMP_COLS:
         if c in df.columns:
@@ -41,6 +58,11 @@ def main() -> None:
                     F.try_to_timestamp(F.col(c)),
                 ),
             )
+
+    for c in INT_COLS + DOUBLE_COLS:
+        if c in df.columns:
+            t = "int" if c in INT_COLS else "double"
+            df = df.withColumn(c, F.expr(f"try_cast(regexp_replace(`{c}`, '[$,]', '') as {t})"))
 
     df = (
         df.withColumn("year", F.year("trip_start_timestamp"))
