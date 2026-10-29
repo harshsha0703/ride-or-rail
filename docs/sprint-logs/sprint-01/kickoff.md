@@ -1,8 +1,8 @@
 # Sprint 01 – Kickoff
 
-**Date of kickoff:** [date you held it, e.g. 2026-10-22]
+**Date of kickoff:** 2026-10-22
 **Scrum Master:** Harsh (Week 9), Dharmik (Week 10)
-**Attendees:** [Harsh, Dharmik, Yousuf]
+**Attendees:** Harsh, Dharmik, Yousuf
 
 ## 1. Sprint goal
 
