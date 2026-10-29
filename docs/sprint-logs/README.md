@@ -34,6 +34,6 @@ questions, runs that week's stand-ups, and makes sure the log is updated.
 
 | Date posted | Requirement | Our questions / PO answer | How we're handling it | Board issue |
 | --- | --- | --- | --- | --- |
-| Waiting | Project working methodology: Scrum with weekly requirements, Scrum Master of the Week replies on Piazza, Kanban board + sprint logs, stand-ups in last 15 min of class, individual grading | — | Added sprint logs + templates, Scrum Master rotation, stand-ups logged per class | — |
+| Oct 23 | Project working methodology: Scrum with weekly requirements, Scrum Master of the Week replies on Piazza, Kanban board + sprint logs, stand-ups in last 15 min of class, individual grading | — | Added sprint logs + templates, Scrum Master rotation, stand-ups logged per class | — |
 | Oct 23 | (TA reply) No course cluster or cloud credits; test locally, then use a free tier. Minimum requirements on data sources and data forms coming on Piazza | — | Local Spark for development; Google Cloud trial for full runs (#23); already have 4 sources in different forms | #23 |
-| Waiting | (Our question) Midterm check: Week 11 or Week 13? Final report: Week 15 or Week 16? | [PO answer, or "waiting"] | Planning for the earlier dates until answered | — |
+| Oct 28 | (Our question) Midterm check: Week 11 or Week 13? Final report: Week 15 or Week 16? | [PO answer, or "waiting"] | Planning for the earlier dates until answered | — |
