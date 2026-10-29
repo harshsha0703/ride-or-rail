@@ -1,9 +1,8 @@
 # Sprint 01 – Kickoff
 
-**Sprint dates:** Oct 19 – Oct 30 (Weeks 9–10)
-**Date of kickoff:**
+**Date of kickoff:** [date you held it, e.g. 2026-10-22]
 **Scrum Master:** Harsh (Week 9), Dharmik (Week 10)
-**Attendees:**
+**Attendees:** [Harsh, Dharmik, Yousuf]
 
 ## 1. Sprint goal
 
@@ -36,6 +35,8 @@ look at the patterns (EDA), so the mining work can start in Sprint 2.
 | Dharmik | #5, #8, #9 | 2023+ downloads, data-quality notebook, EDA notebook (lead) |
 | Yousuf | #6, #9 | Supporting datasets + source log, EDA charts for supporting data |
 
+**Change on Oct 23:** Harsh's laptop has only 11 GB free, so the full download (#4) and Parquet conversion (#7) moved to Dharmik (277 GB free). Harsh took the data-quality notebook (#8) and Parquet type fixes instead.
+
 ## 4. Dependencies and risks
 
 - **Dependencies:** #7 needs #4 and #5; #8 and #9 need #7 (can start on the 1M-row sample).
@@ -49,4 +50,4 @@ look at the patterns (EDA), so the mining work can start in Sprint 2.
 - **Progress outside meetings:** GitHub board + WhatsApp group
 - **If blocked:** post in WhatsApp right away and tag who can help; raise at next stand-up
 
-**Team commitment:**
+**Team commitment:** Have all project data downloaded, checked and ready in Parquet by the end of the sprint, so we can start mining in Sprint 2, with every member contributing through their own pull requests.
