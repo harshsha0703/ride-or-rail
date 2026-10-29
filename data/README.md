@@ -57,3 +57,8 @@ Log each file here when you download it.
 | socioeconomic_by_area.csv | kn9c-c2s2 | 5.2 KB | Oct 25 | Yousuf |
 | weather_ohare.csv | USW00094846 | 10 MB | Oct 25 | Yousuf |
 | weather_midway.csv | USW00014819 | 2.6 MB | Oct 25 | Yousuf |
+| tnp_trips_2018_2022.csv | m6dm-c72p |  73G | Oct 2026 | Dharmik |
+| tnp_trips_2023_2024.csv | n26f-ihde |  44G | Oct 2026 | Dharmik |
+| tnp_trips_2025.csv | 6dvr-xwnh |  39G | Oct 2026 | Dharmik |
+
+Row counts (wc -l minus header): tnp_trips_2018_2022.csv = 123,456,789; matches portal: yes/no
