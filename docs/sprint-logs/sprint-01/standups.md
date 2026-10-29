@@ -1,6 +1,6 @@
 # Sprint 01 – Stand-ups
 
-## Stand-up – YYYY-MM-DD (Sprint 01)
+## Stand-up – 2026-10-28 (Sprint 01)
 
 **Scrum Master:**
 **Present:**

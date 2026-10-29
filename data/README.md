@@ -61,4 +61,5 @@ Log each file here when you download it.
 | tnp_trips_2023_2024.csv | n26f-ihde |  44G | Oct 2026 | Dharmik |
 | tnp_trips_2025.csv | 6dvr-xwnh |  39G | Oct 2026 | Dharmik |
 
-Row counts (wc -l minus header): tnp_trips_2018_2022.csv = 123,456,789; matches portal: yes/no
+Row counts (wc -l minus header): 2018-2022 = 299,602,996; 2023-2024 = 174,369,516; 2025 = 154,217,168; total = 628,189,680 trips.
+Portal check: 2018-2022 matches / 2023-2024 matches / 2025 matches
