@@ -1,7 +1,7 @@
 ## Stand-up – 2026-10-28 (Sprint 01)
 
 **Scrum Master:** Dharmik
-**Present:** [Harsh, Dharmik, Yousuf — only who was there]
+**Present:** Harsh, Dharmik, Yousuf
 
 | Team member | Progress since last stand-up | Next action | Blockers |
 | --- | --- | --- | --- |
