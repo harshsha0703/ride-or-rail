@@ -63,3 +63,4 @@ Log each file here when you download it.
 
 Row counts (wc -l minus header): 2018-2022 = 299,602,996; 2023-2024 = 174,369,516; 2025 = 154,217,168; total = 628,189,680 trips.
 Portal check: 2018-2022 matches / 2023-2024 matches / 2025 matches
+Parquet: data/parquet/tnp (35 GB), partitioned by table/year/month. Rows per table match the CSVs exactly (628,189,680 total). Read with option("mergeSchema", "true"): 2018–2022 lacks 3 columns the newer tables have. CSVs deleted after the exact match; re-download with src/ingest/download_tnp.py.
