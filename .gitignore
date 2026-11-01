@@ -12,11 +12,13 @@ __pycache__/
 .venv/
 venv/
 .ipynb_checkpoints/
+parquet_log.txt
 
 # Spark
 spark-warehouse/
 metastore_db/
 derby.log
+spark-tmp/
 
 # Secrets
 .env
@@ -27,3 +29,4 @@ derby.log
 .DS_Store
 .vscode/
 .idea/
+
