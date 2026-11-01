@@ -10,3 +10,4 @@
 | Oct 25 | CTA `rides` values have thousands commas (`"6,217"`), so pandas reads the column as text | Checked with grep: ~962k 'L' rows and ~889k bus rows affected | Read with `thousands=","`; noted in data/README.md |
 | Oct 26 | Numbers saved as text; 2023+ tables have 3 extra columns | Found in data-quality notebook; tested a fix on a 4,000-row mix of old and new tables | Read each file separately and combine by column name; store numbers as int/double |
 | Oct 24 | 2023–24 download failed at 5.35 GB; server refused connections | Retried 5 times automatically | Re-ran off-peak; still in progress Oct 28 |
+| Oct 28 | Full Parquet conversion ran out of disk (shuffle temp files + 156 GB CSVs) | Converted one table at a time with zstd-compressed temp files; deleted each CSV after exact row-count match | Done Nov 1: 628,189,680 rows, 35 GB |
