@@ -62,6 +62,19 @@ spark-submit src/ingest/to_parquet.py --input data/raw/tnp --output data/parquet
 
 We're doing 2-week sprints. Each task is an issue on the board; work happens on a branch (`netid/issue#-short-name`) and gets merged through a PR that the other person reviews. Don't commit data or keys.
 
+## Running on Google Cloud (Dataproc Serverless)
+
+We use the Google Cloud free trial for full-data runs (budget alert set at $50).
+
+    PROJECT=$(gcloud config get-value project)
+    gcloud storage cp -r data/parquet/<folder> gs://ride-or-rail-data-$PROJECT/parquet/
+    gcloud dataproc batches submit pyspark <script.py> --region=us-central1 \
+      --deps-bucket=gs://ride-or-rail-data-$PROJECT -- <arguments>
+
+One-time setup: enable the dataproc, storage and compute APIs, and turn on
+Private Google Access for the default subnet in us-central1.
+Tested Nov 1: src/cloud/count_test.py read the 200k sample (ROWS: 200000) in ~3 minutes.
+
 ## Milestones
 
 | Due | Milestone |
