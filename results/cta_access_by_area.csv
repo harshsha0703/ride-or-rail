@@ -1,0 +1,78 @@
+area,name,area_km2,l_stations,l_lines,nearest_station,nearest_station_lines,dist_to_L_km
+1,Rogers Park,4.76,4,3,Morse,Red,0.38
+2,West Ridge,9.14,0,0,Morse,Red,2.53
+3,Uptown,6.04,3,2,Wilson,"Red, Purple",0.22
+4,Lincoln Square,6.62,4,1,Western,Brown,1.0
+5,North Center,5.3,2,1,Addison,Brown,0.77
+6,Lake View,8.1,7,3,Addison,Red,0.41
+7,Lincoln Park,8.2,2,3,Fullerton,"Red, Brown, Purple",0.38
+8,Near North Side,7.12,7,3,Chicago,"Brown, Purple",0.38
+9,Edison Park,2.94,0,0,Harlem,Blue,2.84
+10,Norwood Park,11.32,1,1,Harlem,Blue,0.56
+11,Jefferson Park,6.02,1,1,Jefferson Park,Blue,1.25
+12,Forest Glen,8.27,0,0,Jefferson Park,Blue,2.6
+13,North Park,6.53,0,0,Kimball,Brown,1.95
+14,Albany Park,4.97,3,1,Kimball,Brown,0.7
+15,Portage Park,10.23,0,0,Montrose,Blue,1.84
+16,Irving Park,8.32,3,1,Irving Park,Blue,0.48
+17,Dunning,9.62,0,0,Harlem,Blue,3.98
+18,Montclare,2.56,0,0,Oak Park,Green,4.71
+19,Belmont Cragin,10.13,0,0,Irving Park,Blue,4.14
+20,Hermosa,3.03,0,0,Logan Square,Blue,2.25
+21,Avondale,5.13,1,1,Belmont,Blue,0.11
+22,Logan Square,9.29,3,1,California,Blue,0.21
+23,Humboldt Park,9.33,0,0,Pulaski,Green,1.67
+24,West Town,11.84,4,1,Division,Blue,0.85
+25,Austin,18.5,5,2,Central,Green,0.77
+26,West Garfield Park,3.35,2,2,Pulaski,Blue,0.65
+27,East Garfield Park,5.0,4,2,Kedzie-Homan,Blue,0.51
+28,Near West Side,14.71,10,3,Racine,Blue,0.4
+29,North Lawndale,8.31,4,1,Central Park,Pink,0.73
+30,South Lawndale,11.88,1,1,Central Park,Pink,1.64
+31,Lower West Side,7.57,4,2,Damen,Pink,0.84
+32,Loop,4.3,16,7,Adams/Wabash,"Green, Brown, Purple, Pink, Orange",0.1
+33,Near South Side,4.62,2,3,Cermak-McCormick Place,Green,0.68
+34,Armour Square,2.58,2,1,Sox-35th,Red,1.24
+35,Douglas,4.27,1,1,35th-Bronzeville-IIT,Green,0.71
+36,Oakland,1.57,0,0,Indiana,Green,1.52
+37,Fuller Park,1.85,2,1,47th,Red,0.18
+38,Grand Boulevard,4.5,4,1,43rd,Green,0.4
+39,Kenwood,2.7,0,0,47th,Green,1.88
+40,Washington Park,3.93,1,1,Garfield,Green,0.31
+41,Hyde Park,4.19,0,0,Cottage Grove,Green,1.9
+42,Woodlawn,5.37,2,1,Cottage Grove,Green,0.92
+43,South Shore,7.59,0,0,Cottage Grove,Green,3.45
+44,Chatham,7.64,2,1,87th,Red,0.9
+45,Avalon Park,3.24,0,0,79th,Red,3.3
+46,South Chicago,8.66,0,0,87th,Red,6.13
+47,Burnside,1.58,0,0,95th/Dan Ryan,Red,2.41
+48,Calumet Heights,4.53,0,0,95th/Dan Ryan,Red,4.37
+49,Roseland,12.47,1,1,95th/Dan Ryan,Red,1.75
+50,Pullman,5.48,0,0,95th/Dan Ryan,Red,2.82
+51,South Deering,28.2,0,0,95th/Dan Ryan,Red,5.73
+52,East Side,7.73,0,0,95th/Dan Ryan,Red,7.63
+53,West Pullman,9.22,0,0,95th/Dan Ryan,Red,5.47
+54,Riverdale,9.13,0,0,95th/Dan Ryan,Red,7.14
+55,Hegewisch,13.55,0,0,95th/Dan Ryan,Red,9.44
+56,Garfield Ridge,10.94,1,1,Midway,Orange,2.44
+57,Archer Heights,5.19,0,0,Pulaski,Orange,1.24
+58,Brighton Park,7.05,1,1,Kedzie,Orange,1.53
+59,Mckinley Park,3.66,1,1,35th/Archer,Orange,0.68
+60,Bridgeport,5.41,1,1,Halsted,Orange,1.18
+61,New City,12.5,0,0,Western,Orange,2.12
+62,West Elsdon,3.04,1,1,Pulaski,Orange,0.75
+63,Gage Park,5.69,1,1,Kedzie,Orange,1.18
+64,Clearing,6.6,0,0,Midway,Orange,2.66
+65,West Lawn,7.64,0,0,Midway,Orange,2.08
+66,Chicago Lawn,9.12,0,0,Ashland/63rd,Green,2.76
+67,West Englewood,8.16,1,1,Ashland/63rd,Green,0.4
+68,Englewood,7.95,2,2,Halsted,Green,0.24
+69,Greater Grand Crossing,9.18,1,1,69th,Red,0.98
+70,Ashburn,12.58,0,0,Midway,Orange,5.16
+71,Auburn Gresham,9.75,0,0,79th,Red,2.68
+72,Beverly,8.24,0,0,95th/Dan Ryan,Red,4.34
+73,Washington Heights,7.39,0,0,95th/Dan Ryan,Red,2.11
+74,Mount Greenwood,7.02,0,0,95th/Dan Ryan,Red,8.0
+75,Morgan Park,8.53,0,0,95th/Dan Ryan,Red,5.19
+76,Ohare,34.52,2,1,O'Hare,Blue,0.9
+77,Edgewater,4.5,4,1,Bryn Mawr,Red,0.52
