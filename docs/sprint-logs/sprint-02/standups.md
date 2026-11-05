@@ -11,9 +11,9 @@ New entries go at the bottom. Copy the block from `templates/standup.md` for eac
 | --- | --- | --- | --- |
 | Harsh | | | |
 | Dharmik | | | |
-| Yousuf | Sprint 2 kickoff merged (#60); CTA 'L' access per community area merged (#61, closes #11): notebook, table for all 77 areas, 2 maps for the memo | Log this week's stand-ups; check Piazza daily and follow up on the midterm-date question; hand over to Harsh Fri Nov 6 | None |
+| Yousuf | Sprint 2 kickoff merged (#60); CTA 'L' access per community area merged (#61, closes #11): notebook, table for all 77 areas, 2 maps for the memo | Log this week's stand-ups; check Piazza daily for the answer on milestone dates; hand over to Harsh Fri Nov 6 | None |
 
-**Blockers needing follow-up:** TA still hasn't answered our Oct 28 question on the midterm and final report dates (Yousuf, follow up on Piazza Nov 4)
+**Blockers needing follow-up:** Midterm and final report dates still not confirmed. The Oct 28 question was never posted, so Yousuf posted it on Piazza on Nov 4 (Yousuf, check for an answer by Nov 6)
 
 **Plan changes:** None
 
