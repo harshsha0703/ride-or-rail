@@ -1,0 +1,78 @@
+area,name,cluster,trips,dist_to_L_km
+3,Uptown,0,6459605,0.22
+4,Lincoln Square,0,3118368,1.0
+5,North Center,0,3141632,0.77
+6,Lake View,0,18796093,0.41
+7,Lincoln Park,0,14228554,0.38
+8,Near North Side,0,44540572,0.38
+9,Edison Park,0,324172,2.84
+21,Avondale,0,3061570,0.11
+22,Logan Square,0,9210683,0.21
+24,West Town,0,14786217,0.85
+28,Near West Side,0,25422980,0.4
+31,Lower West Side,0,3521396,0.84
+32,Loop,0,24310000,0.1
+33,Near South Side,0,6390635,0.68
+34,Armour Square,0,1626419,1.24
+41,Hyde Park,0,6327519,1.9
+77,Edgewater,0,4630849,0.52
+1,Rogers Park,1,3901974,0.38
+2,West Ridge,1,3054214,2.53
+10,Norwood Park,1,1205607,0.56
+11,Jefferson Park,1,1065948,1.25
+12,Forest Glen,1,464708,2.6
+13,North Park,1,788584,1.95
+14,Albany Park,1,2115171,0.7
+15,Portage Park,1,2274446,1.84
+16,Irving Park,1,3002224,0.48
+17,Dunning,1,1052507,3.98
+18,Montclare,1,446910,4.71
+19,Belmont Cragin,1,2683372,4.14
+20,Hermosa,1,834919,2.25
+23,Humboldt Park,1,2878749,1.67
+25,Austin,1,5275582,0.77
+26,West Garfield Park,1,1247222,0.65
+27,East Garfield Park,1,1682460,0.51
+29,North Lawndale,1,2841217,0.73
+30,South Lawndale,1,2097181,1.64
+35,Douglas,1,2078326,0.71
+36,Oakland,1,489980,1.52
+37,Fuller Park,1,319836,0.18
+38,Grand Boulevard,1,2066881,0.4
+39,Kenwood,1,1514457,1.88
+40,Washington Park,1,1163172,0.31
+42,Woodlawn,1,2748808,0.92
+43,South Shore,1,3346796,3.45
+44,Chatham,1,2528518,0.9
+45,Avalon Park,1,535194,3.3
+46,South Chicago,1,1213264,6.13
+47,Burnside,1,199937,2.41
+48,Calumet Heights,1,611329,4.37
+49,Roseland,1,2396268,1.75
+50,Pullman,1,667246,2.82
+51,South Deering,1,736896,5.73
+52,East Side,1,232432,7.63
+53,West Pullman,1,1276148,5.47
+54,Riverdale,1,438239,7.14
+55,Hegewisch,1,197861,9.44
+57,Archer Heights,1,618723,1.24
+58,Brighton Park,1,1252819,1.53
+59,Mckinley Park,1,725345,0.68
+60,Bridgeport,1,1572489,1.18
+61,New City,1,1558909,2.12
+62,West Elsdon,1,473983,0.75
+63,Gage Park,1,922099,1.18
+64,Clearing,1,550461,2.66
+65,West Lawn,1,878909,2.08
+66,Chicago Lawn,1,1890396,2.76
+67,West Englewood,1,1537967,0.4
+68,Englewood,1,1867744,0.24
+69,Greater Grand Crossing,1,2471344,0.98
+70,Ashburn,1,1235360,5.16
+71,Auburn Gresham,1,2620315,2.68
+72,Beverly,1,564752,4.34
+73,Washington Heights,1,1343464,2.11
+74,Mount Greenwood,1,331881,8.0
+75,Morgan Park,1,1042769,5.19
+56,Garfield Ridge,2,4794820,2.44
+76,O'Hare,2,16009804,0.9
