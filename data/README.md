@@ -64,3 +64,16 @@ Log each file here when you download it.
 Row counts (wc -l minus header): 2018-2022 = 299,602,996; 2023-2024 = 174,369,516; 2025 = 154,217,168; total = 628,189,680 trips.
 Portal check: 2018-2022 matches / 2023-2024 matches / 2025 matchesParquet: data/parquet/tnp (35 GB), partitioned by table/year/month. Rows per table match the CSVs exactly (628,189,680 total). Read with option("mergeSchema", "true"): 2018–2022 lacks 3 columns the newer tables have. CSVs deleted after the exact match; re-download with src/ingest/download_tnp.py.
 
+
+## Feature table: community area x hour
+
+`src/features/build_area_hour.py` builds `data/features/area_hour` (Parquet, partitioned by year)
+from the cleaned trips (rules from `notebooks/01_data_quality_full.ipynb`) plus O'Hare weather
+and CTA daily ridership. One row = one pickup community area, date and hour.
+
+- Rows: 5,258,499
+- Community areas: 77
+- Trips counted: 575,009,438 (trips with no pickup community area are left out)
+- Dates: 2018-11-01 to 2026-08-31
+- Rows with no weather: 0; rows with no CTA data: 0
+- Built on 2026-11-05; also in the team bucket under features/area_hour
