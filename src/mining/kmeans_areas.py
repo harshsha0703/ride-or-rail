@@ -32,7 +32,9 @@ def normalize(df):
 
 
 trips_path, access_path, out = sys.argv[1], sys.argv[2], sys.argv[3].rstrip("/")
-spark = SparkSession.builder.appName("kmeans-areas").getOrCreate()
+spark = (SparkSession.builder.appName("kmeans-areas")
+         .config("spark.sql.session.timeZone", "America/Chicago")  # trip times are Chicago local time
+         .getOrCreate())
 
 trips = normalize(spark.read.option("mergeSchema", "true").parquet(trips_path))
 t = (trips

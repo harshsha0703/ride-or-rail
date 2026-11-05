@@ -34,7 +34,9 @@ trips_path, out = sys.argv[1], sys.argv[2].rstrip("/")
 fraction = float(sys.argv[3]) if len(sys.argv) > 3 else 0.1
 MIN_SUPPORT, MIN_CONFIDENCE = 0.002, 0.1
 
-spark = SparkSession.builder.appName("fpgrowth-routes").getOrCreate()
+spark = (SparkSession.builder.appName("fpgrowth-routes")
+         .config("spark.sql.session.timeZone", "America/Chicago")  # trip times are Chicago local time
+         .getOrCreate())
 trips = normalize(spark.read.option("mergeSchema", "true").parquet(trips_path))
 t = (trips
      .filter((F.col("trip_seconds") > 0) & (F.col("trip_miles") > 0)
