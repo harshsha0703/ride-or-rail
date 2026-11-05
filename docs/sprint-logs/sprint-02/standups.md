@@ -9,7 +9,7 @@ New entries go at the bottom. Copy the block from `templates/standup.md` for eac
 
 | Team member | Progress since last stand-up | Next action | Blockers |
 | --- | --- | --- | --- |
-| Harsh | | | |
+| Harsh | Ran K-means (k = 3, silhouette 0.643) and FP-Growth (4,234 rules) on all 2023+ trips on Dataproc and fixed a timezone bug in the time bands| Next: findings memo #14. | Blockers: none.|
 | Dharmik | | | |
 | Yousuf | Sprint 2 kickoff merged (#60); CTA 'L' access per community area merged (#61, closes #11): notebook, table for all 77 areas, 2 maps for the memo | Log this week's stand-ups; check Piazza daily for the answer on milestone dates; hand over to Harsh Fri Nov 6 | None |
 
