@@ -27,7 +27,7 @@ New entries go at the bottom. Copy the block from `templates/standup.md` for eac
 | --- | --- | --- | --- |
 | Harsh | Ran K-means (k = 3, silhouette 0.643) and FP-Growth (4,234 rules) on all 2023+ trips on Dataproc; found and fixed a timezone bug in the time bands; PR #64 merged (closes #12, #13); drafted the M2 findings memo (#14) | Team review of the memo, then open the PR for #14 | None |
 | Dharmik | | | |
-| Yousuf | | | |
+| Yousuf | Got the instructor's answer on milestone dates on Piazza and logged it (#63); reviewed and approved #64 and #65 | Review the M2 memo (#14) | None |
 
 **Blockers needing follow-up:** None
 
@@ -43,7 +43,7 @@ New entries go at the bottom. Copy the block from `templates/standup.md` for eac
 | --- | --- | --- | --- |
 | Harsh | Checked the feature table is in the bucket (98 MB, 2018–2026); memo review in progress | Merge the memo PR (#14); run the Sprint 2 retro on Fri Nov 13 | None |
 | Dharmik | | | |
-| Yousuf | | | |
+| Yousuf | Reviewed, approved and merged the M2 memo (#68), Week 12 stand-up logs (#70) and data README fix (#69) | Sprint 2 retro Fri Nov 13; pick up Sprint 3 tasks | None |
 
 **Blockers needing follow-up:** None
 
