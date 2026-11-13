@@ -1,8 +1,8 @@
 # Sprint 01 – Retrospective
 
 **Sprint dates:** Oct 19 – Oct 30 (Weeks 9–10)
-**Date of retro:** DATE
-**Attendees:** NAMES
+**Date of retro:** 2026-10-30
+**Attendees:** Harsh, Dharmik, Yousuf
 
 ## Did we meet the sprint goal?
 

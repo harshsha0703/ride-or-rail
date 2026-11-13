@@ -21,7 +21,7 @@ New entries go at the bottom. Copy the block from `templates/standup.md` for eac
 ## Stand-up – 2026-11-09 (Sprint 02)
 
 **Scrum Master:** Harsh
-**Present:**
+**Present:** Harsh, Dharmik, Yousuf
 
 | Team member | Progress since last stand-up | Next action | Blockers |
 | --- | --- | --- | --- |
@@ -37,7 +37,7 @@ New entries go at the bottom. Copy the block from `templates/standup.md` for eac
 ## Stand-up – 2026-11-11 (Sprint 02)
 
 **Scrum Master:** Harsh
-**Present:**
+**Present:** Harsh, Dharmik, Yousuf
 
 | Team member | Progress since last stand-up | Next action | Blockers |
 | --- | --- | --- | --- |
