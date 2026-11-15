@@ -26,12 +26,13 @@ We analyze by community area (77 areas), not census tract, because about 48% of 
 | Community area boundaries | [igwz-8jzy](https://data.cityofchicago.org/d/igwz-8jzy) | Maps and joins |
 | Socioeconomic indicators by community area (2008–2012) | [kn9c-c2s2](https://data.cityofchicago.org/d/kn9c-c2s2) | Income, poverty, unemployment per area |
 | NOAA GHCN-Daily weather (O'Hare, Midway) | USW00094846, USW00014819 | Temperature, rain, snow per day |
+| ACS 5-year data by community area (released 2023) | [t68z-cikk](https://data.cityofchicago.org/d/t68z-cikk) | Population per area (trips per person) |
 
 To download them all (from the repo root, takes about a minute):
 
 ```bash
 mkdir -p data/raw/supporting && cd data/raw/supporting
-for id in 5neh-572f:cta_L_daily jyb9-n7fm:cta_bus_daily 8pix-ypme:cta_L_stops kn9c-c2s2:socioeconomic_by_area; do
+for id in 5neh-572f:cta_L_daily jyb9-n7fm:cta_bus_daily 8pix-ypme:cta_L_stops kn9c-c2s2:socioeconomic_by_area t68z-cikk:acs_by_area; do
   curl -fL -o "${id#*:}.csv" "https://data.cityofchicago.org/api/v3/views/${id%%:*}/export.csv?accessType=DOWNLOAD"
 done
 curl -fL -o community_areas.geojson "https://data.cityofchicago.org/resource/igwz-8jzy.geojson"
@@ -60,6 +61,7 @@ Log each file here when you download it.
 | tnp_trips_2018_2022.csv | m6dm-c72p |  73G | Oct 2026 | Dharmik |
 | tnp_trips_2023_2024.csv | n26f-ihde |  44G | Oct 2026 | Dharmik |
 | tnp_trips_2025.csv | 6dvr-xwnh |  39G | Oct 2026 | Dharmik |
+| acs_by_area.csv | t68z-cikk | 19 KB | Nov 15 | Yousuf |
 
 Row counts (wc -l minus header): 2018-2022 = 299,602,996; 2023-2024 = 174,369,516; 2025 = 154,217,168; total = 628,189,680 trips.
 Portal check: 2018-2022 matches / 2023-2024 matches / 2025 
