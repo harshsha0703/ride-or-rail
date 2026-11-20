@@ -102,4 +102,48 @@ Standard deviations range from about 0.1 (income shares) to about 22,000 (popula
 
 ### Spark execution on Dataproc
 
-Batch `shuss26-supporting-eda-1120`, Google Cloud project `ride-or-rail-123456`, region `us-central1`.
+| | |
+| --- | --- |
+| Batch | `shuss26-supporting-eda-1120` (project `ride-or-rail-123456`, region `us-central1`), submitted by Yousuf Hussain |
+| Runtime | Dataproc Serverless 2.2.90 (Spark 3.5), autoscaling on |
+| Driver and executors | 4 vCPU, 9.4 GB each; 2 executors to start |
+| Duration | 6 min 47 s for the batch, 5.6 min of Spark time |
+| Spark jobs | 322 completed, 0 failed |
+| Cost | about 1.2 DCU-hours |
+
+**Jobs list.** Each check is one or more Spark jobs; reading and counting the CTA files runs as 8 parallel tasks (one per 16 MB input partition).
+
+![Spark jobs](docs/figures/eda/dag_jobs_list.png)
+
+**Job 15: one stage with 1,000 parallel tasks.** This is the duplicate check on the 'L' file: Spark shuffles 33.4 MiB across 1,000 partitions so that each task handles a share of the station-days.
+
+![Job 15 stages](docs/figures/eda/dag_job15_stages.png)
+
+**Query 6 DAG (station names per station id).** Spark scans the cached 'L' data (1,333,391 rows), removes duplicate station-days with a sort-aggregate and an `Exchange` (shuffle) into 1,000 partitions, which leaves 1,332,773 rows (exactly 618 fewer, matching the duplicate-key check), and then counts names per station with two more hash-aggregate and shuffle steps.
+
+![Query 6 DAG](docs/figures/eda/dag_query6.png)
+
+Exported physical plan for the same query (final plan from the Spark UI, abridged: expression ids and per-node metrics removed):
+
+```
+AdaptiveSparkPlan isFinalPlan=true
++- *(4) HashAggregate(keys=[], functions=[count(1)])
+   +- Exchange SinglePartition
+      +- *(3) HashAggregate(keys=[], functions=[partial_count(1)])
+         +- *(3) Filter (n > 1)
+            +- *(3) HashAggregate(keys=[station_id], functions=[count(distinct stationname)])
+               +- AQEShuffleRead coalesced
+                  +- Exchange hashpartitioning(station_id, 1000)
+                     +- *(2) HashAggregate(keys=[station_id], functions=[partial_count(distinct stationname)])
+                        +- *(2) HashAggregate(keys=[station_id, stationname])
+                           +- AQEShuffleRead coalesced
+                              +- Exchange hashpartitioning(station_id, stationname, 1000)
+                                 +- *(1) HashAggregate(keys=[station_id, stationname])
+                                    +- InMemoryTableScan [station_id, stationname]
+                                       (cached: SortAggregate over Exchange hashpartitioning(station_id, date, 1000)
+                                        <- FileScan csv gs://ride-or-rail-data-ride-or-rail-123456/inputs/supporting/cta_L_daily.csv)
+```
+
+**Query 0 DAG (reading the 'L' file header).** The first step of the job: Spark scans the 60.4 MiB CSV in Cloud Storage.
+
+![Query 0 DAG](docs/figures/eda/dag_query_scan.png)
