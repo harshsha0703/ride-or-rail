@@ -80,14 +80,17 @@ def draw_map(metric, area):
     fig = px.choropleth_map(scores, geojson=geojson, locations="area", color=metric,
                             hover_name="name", hover_data={"area": False, "gap_score": True, "rank": True},
                             color_continuous_scale="Reds", map_style=MAP_STYLE,
-                            center={"lat": 41.84, "lon": -87.68}, zoom=9.2, opacity=0.75,
+                            center={"lat": 41.835, "lon": -87.69}, zoom=9.3, opacity=0.75,
                             labels={metric: METRICS[metric]})
     sel = scores[scores["area"] == area]
     fig.add_trace(go.Choroplethmap(geojson=geojson, locations=sel["area"], z=[1] * len(sel),
                                    colorscale=[[0, "rgba(0,0,0,0)"], [1, "rgba(0,0,0,0)"]],
                                    marker_line_width=3, marker_line_color="black",
                                    showscale=False, hoverinfo="skip"))
-    fig.update_layout(margin={"l": 0, "r": 0, "t": 0, "b": 0})
+    fig.update_layout(margin={"l": 0, "r": 0, "t": 0, "b": 0},
+                      coloraxis_colorbar={"orientation": "h", "x": 0.5, "y": 0.01, "yanchor": "bottom",
+                                          "len": 0.8, "thickness": 12, "title": {"side": "top"},
+                                          "bgcolor": "rgba(255,255,255,0.8)"})
     return fig
 
 
