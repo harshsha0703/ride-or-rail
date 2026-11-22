@@ -1,63 +1,62 @@
-# Sprint 02 – Kickoff
+# Sprint 03 – Kickoff
 
-**Date of kickoff:** 2026-11-02
-**Scrum Master:** Yousuf (Week 11), Harsh (Week 12)
+**Date of kickoff:** 2026-11-16
+**Scrum Master:** Dharmik (Week 13), Yousuf (Week 14)
 **Attendees:** Harsh, Dharmik, Yousuf
 
 ## 1. Sprint goal
 
-Find the first patterns in the full trip data: group the 77 community areas by how they use rideshare (K-means), find the most frequent trip routes (FP-Growth), and measure CTA access for each area, then write it up in a findings memo for milestone M2 (Nov 13).
+Turn the Sprint 2 patterns into the model and prototype for milestone M3: predict trips per area and hour with a gradient-boosted tree model and compare it with baselines, score every community area for transit gaps using trips per person, income and 'L' access, and build a first dashboard for the Week 15 demo. Submit the Week 13 intermediate checkup.
 
 ## 2. Sprint backlog
 
 | # | Feature or task | Expected outcome | Priority | Issue |
 | --- | --- | --- | --- | --- |
-| 1 | Upload full Parquet to Google Cloud Storage | All 628M trips in our bucket, so anyone can run full-data jobs on Dataproc | High | #23 |
-| 2 | Build community area x hour feature table | Trips per area per hour (2018–2026) with weather and CTA ridership joined, saved as Parquet | High | #10 |
-| 3 | Compute CTA access per community area | Distance to the nearest 'L' station, and 'L' stations and lines inside each of the 77 areas | Medium | #11 |
-| 4 | K-means clustering of community areas | Areas grouped by usage profile; k chosen with elbow + silhouette; map/chart of clusters | High | #12 |
-| 5 | Frequent routes with FP-Growth | Top origin-destination pairs with support, confidence and lift; check which run along 'L' lines | High | #13 |
-| 6 | Findings memo for M2 | 1–2 page memo with charts from #11, #12, #13 | Medium | #14 |
-
-Analysis is at **community area** level, not census tract, because 39% of trips have no tract (see `notebooks/01_data_quality_full.ipynb`). Mining uses the cleaned data (627,606,969 trips) and, where the COVID break matters, the 2023–2026 trips only.
+| 1 | Demand model | GBT predicting trips per area and hour (2023+), time-based split, compared with 2 baselines using RMSE, MAE and R²; results in `results/model/` | High | #15 |
+| 2 | Population and income per area | ACS population, income and poverty for all 77 areas; trips per person per year; charts | High | new issue |
+| 3 | Transit-gap score per area | One score per area from trips per person, distance to the 'L', transfers on busy routes and income; formula documented | High | #16 |
+| 4 | Dashboard prototype | Plotly Dash app: map of the transit-gap score, demand by hour per area | High | #17 |
+| 5 | Intermediate checkup (Week 13) | Draft report (M2 memo plus progress) submitted on Gradescope | High | — |
 
 **How we'll know the sprint succeeded:**
-- Feature table, K-means and FP-Growth notebooks merged into `main`, each run on the full data
-- Each mining result reports its quality measures (silhouette for K-means; support, confidence, lift for FP-Growth)
-- Findings memo in `docs/` and every issue above closed on the board
-- Every member has merged at least one PR of their own
+- The model beats both baselines on the test period, with RMSE, MAE and R² reported in a notebook
+- All 77 areas have a population, income and transit-gap score
+- The dashboard runs locally and shows the map and hourly demand
+- The intermediate checkup is submitted on time
+- Every member has merged at least one PR of their own, and every PR was checked by someone else before merging
 
 ## 3. Assignments
 
 | Team member | Task / user story | Expected deliverable |
 | --- | --- | --- |
-| Harsh | #12, #13, #14 | K-means notebook, FP-Growth notebook (run on Dataproc with the full data), findings memo |
-| Dharmik | #23 (upload), #10 | Full Parquet in Cloud Storage; area x hour feature table notebook + Parquet output |
-| Yousuf | #11, Scrum Master Week 11, charts for #14 | CTA access table for the 77 areas, stand-up logs for Week 11, 2 charts for the memo |
+| Dharmik | #15 demand model; Scrum Master Week 13 | `src/models/demand_gbt.py`, `notebooks/07_demand_model.ipynb`, results and 3 charts; stand-up logs for Week 13 |
+| Yousuf | Population and income per area | `notebooks/08_population_income.ipynb`, `results/area_population_income.csv`, 2 charts |
+| Harsh | #16 transit-gap score, #17 dashboard, intermediate checkup | Gap score notebook and table; Dash app; checkup submission |
 
 **Target dates:**
 
 | Date | What should be done |
 | --- | --- |
-| Mon Nov 2 | Kickoff; Dharmik starts the Parquet upload |
-| Wed Nov 4 | Upload done; CTA access first version (Yousuf) |
-| Fri Nov 6 | Feature table merged (Dharmik) |
-| Mon Nov 9 | K-means merged (Harsh) |
-| Wed Nov 11 | FP-Growth merged (Harsh) |
-| Thu Nov 12 | Memo draft with all charts |
-| Fri Nov 13 | Sprint review and retro; M2 done |
+| Mon Nov 16 | Kickoff; Dharmik starts the model run, Yousuf downloads the ACS data |
+| Wed Nov 18 | Population and income merged (Yousuf); model results ready (Dharmik) |
+| Fri Nov 20 | Demand model merged; gap score first version; intermediate checkup submitted |
+| Mon Nov 23 | Dashboard v1 running (map + hourly demand) |
+| Tue Nov 24 | Sprint review and retro; M3 done |
+
+Thanksgiving is Thu Nov 26, so everything for M3 should be done by Nov 24. Weeks 14–15 are for the final report, slides and the demo.
 
 ## 4. Dependencies and risks
 
-- **Dependencies:** Full-data runs by Harsh need the upload (#23) and bucket access for Dharmik. K-means (#12) needs the feature table (#10); it can start on a version built from 2025 data only. The memo (#14) needs #11, #12 and #13.
-- **Risks:** Local Spark crashed on Dharmik's Mac during long full-data runs, so heavy jobs should run on Dataproc. Google Cloud trial credits must cover the jobs; check billing after each run. The midterm check date (Week 11 or Week 13) is still not confirmed by the TA.
-- **Resources / support needed:** TA answer on the midterm check date; Piazza for new requirements (Scrum Master checks daily).
+- **Dependencies:** The gap score (#16) needs Yousuf's population and income table and the K-means and CTA results. The dashboard (#17) needs the gap score and the model's hourly profiles (`results/model/area_hour_profile.csv`).
+- **Risks:** The GBT model may crash a laptop on the full grid (about 2.4 million rows); if so, run it on Dataproc. The ACS data may use area names that don't match ours; the notebook prints any that don't match. The income data (2008–2012) is older than the trips.
+- **Resources / support needed:** Exact due day for the Week 13 intermediate checkup (Scrum Master checks Piazza and Gradescope on Monday).
 
 ## 5. Coordination
 
-- **Stand-ups:** last 15 min of each lecture; WhatsApp check-in on non-class days if needed
+- **Stand-ups:** last 15 minutes of each class; the Scrum Master logs the block and "Present" the same day, and everyone fills in their own row that day
 - **Progress outside meetings:** GitHub board + WhatsApp group
-- **If blocked:** post in WhatsApp right away and tag who can help; raise at next stand-up
-- **Reviews:** no PR is merged until someone who didn't write it has checked "Files changed" (from the Sprint 1 retro)
+- **If blocked:** post in WhatsApp right away and tag who can help
+- **Reviews:** no PR is merged until someone who didn't write it has checked "Files changed" and searched for `TODO`, `[` and leftover sample text
+- **Cloud:** one Dataproc job at a time; check `gcloud dataproc batches list` first
 
-**Team commitment:** Have the first full-data mining results (clusters and frequent routes) and the M2 findings memo done by Nov 13, with every member contributing through their own pull requests.
+**Team commitment:** Have a working demand model, a transit-gap score for every area and a running dashboard by Tue Nov 24, so Weeks 14–15 can go to the final report, slides and demo.
