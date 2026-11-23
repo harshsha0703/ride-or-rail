@@ -1,0 +1,41 @@
+kind,check,rows,pct
+format,rows,628189680,100.0
+format,end before start,228072,0.0363
+format,seconds <= 0,1989,3.0E-4
+format,miles <= 0,201123,0.032
+format,over 4 hours,8312,0.0013
+format,over 100 miles,140325,0.0223
+format,fare <= 0,3817627,0.6077
+format,fare over 500,1074,2.0E-4
+format,total differs from fare+tip+charges by > $1,0,0.0
+format,percent_time_chicago > 1,114578,0.0182
+format,percent_distance_chicago > 1,6525,0.001
+format,pickup area not in 1-77,0,0.0
+format,pickup point outside Chicago box,0,0.0
+format,removed by cleaning rules,582711,0.0928
+missing,trip_id,0,0.0
+missing,trip_start_timestamp,0,0.0
+missing,trip_end_timestamp,1,0.0
+missing,trip_seconds,229482,0.0365
+missing,trip_miles,7127,0.0011
+missing,pickup_census_tract,242093306,38.5382
+missing,dropoff_census_tract,243815199,38.8124
+missing,pickup_community_area,52648176,8.3809
+missing,dropoff_community_area,56027195,8.9188
+missing,fare,1060418,0.1688
+missing,tip,1060310,0.1688
+missing,additional_charges,1060419,0.1688
+missing,trip_total,1060430,0.1688
+missing,shared_trip_authorized,0,0.0
+missing,trips_pooled,0,0.0
+missing,pickup_centroid_latitude,51129371,8.1392
+missing,pickup_centroid_longitude,51129371,8.1392
+missing,pickup_centroid_location,51129371,8.1392
+missing,dropoff_centroid_latitude,54654053,8.7002
+missing,dropoff_centroid_longitude,54654053,8.7002
+missing,dropoff_centroid_location,54654053,8.7002
+missing,percent_time_chicago,300353052,47.8125
+missing,percent_distance_chicago,300364713,47.8143
+missing,shared_trip_match,299604064,47.6932
+duplicates,trip_id seen more than once,0,0.0
+duplicates,extra rows from repeated trip_id,0,0.0
