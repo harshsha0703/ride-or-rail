@@ -42,7 +42,7 @@ New entries go at the bottom. Copy the block from `templates/standup.md` for eac
 | Team member | Progress since last stand-up | Next action | Blockers |
 | --- | --- | --- | --- |
 | Harsh | | | |
-| Dharmik | | | |
+| Dharmik | Demand model (#15) not run yet; branch reset to main | Run demand_gbt.py on Managed Apache Spark on Nov 24, then the notebook and the ML.md section | None |
 | Yousuf | Spark EDA and cleaning for the supporting datasets on Dataproc, with charts and DAG screenshots in EDA.md (#78, PR #79); fixed GitHub usernames in the README and logged Requirement 2 (PR #77); logged Requirements 3 and 4 (PR #84) | Run the Sprint 3 retro on Nov 24; take a part of Requirement 4 (ML.md) | Waiting for my Requirement 4 task |
 
 **Blockers needing follow-up:** Requirement 4 work split and retro draft (Harsh, Nov 24); trip-data section of EDA.md still has to run on the cloud (Harsh, Dharmik); Sprint 3 kickoff.md waiting to merge in #83 (Harsh)
