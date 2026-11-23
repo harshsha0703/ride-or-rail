@@ -1,0 +1,2 @@
+k,best_seed,areas,same_cluster,share_same,adjusted_rand,silhouette_train,silhouette_test
+3,1,77,77,1.0,1.0,0.6464005760353191,0.640290310131811
