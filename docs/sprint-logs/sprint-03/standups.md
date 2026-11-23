@@ -10,7 +10,7 @@ New entries go at the bottom. Copy the block from `templates/standup.md` for eac
 | --- | --- | --- | --- |
 | Harsh | | | |
 | Dharmik | Ran Sprint 3 kickoff | Run the demand model (#15) | None |. On Nov 18: whatever is true, even Model not started yet
-| Yousuf | | | |
+| Yousuf | Population, income and trips per person for all 77 areas merged (#74): 2,647,621 residents, city average 30.7 rideshare trips per person per year | Review teammates' PRs; check Piazza; Scrum Master from Nov 23 | None |
 
 **Blockers needing follow-up:** (owner, deadline) — or "None identified."
 
@@ -26,7 +26,7 @@ New entries go at the bottom. Copy the block from `templates/standup.md` for eac
 | --- | --- | --- | --- |
 | Harsh | | | |
 | Dharmik | | | |
-| Yousuf | | | |
+| Yousuf | Reviewed and merged the data selection doc (#75) | Check Piazza for new requirements; review PRs | None |
 
 **Blockers needing follow-up:** (owner, deadline) — or "None identified."
 
