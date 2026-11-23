@@ -1,0 +1,2 @@
+train_baskets,test_baskets,rules,rules_hold,share_hold,still_frequent,mean_abs_conf_change,corr_confidence,corr_log_lift
+14258642,12376300,4217,3026,0.7175717334598055,4102,0.006764370874288328,0.9990022782284761,0.9987761380785065
