@@ -1,16 +1,17 @@
 """Validation of the K-means area clusters (issue #12, Piazza Requirement 4).
 
 K-means has no labels, so we check two things instead of accuracy:
-1. Time hold-out: fit the scaler and K-means (k = 3) on 2023-2024 trips, then put each area's
-   2025+ profile into the nearest 2023-2024 cluster. If most areas stay in the same cluster,
-   the clusters describe lasting travel patterns and not noise in one period.
-   We also report the silhouette score of the 2025+ profiles under the 2023-2024 model.
-2. Seed stability: refit k = 3 on 2023-2024 with 20 random seeds and compare each result with
-   seed 42 (adjusted Rand index, 1 = identical clusters) and its silhouette score.
+1. Seed stability: fit k = 3 on 2023-2024 with 20 random seeds. K-means can stop in a weaker
+   local optimum, so we keep the seed with the best silhouette score (the usual "best of n
+   restarts" rule) and compare every seed with it (adjusted Rand index, 1 = identical clusters).
+2. Time hold-out: with the scaler and the best 2023-2024 model, put each area's 2025+ profile
+   into the nearest cluster. If most areas stay in the same cluster, the clusters describe
+   lasting travel patterns and not noise in one period. We also report the silhouette score of
+   the 2025+ profiles under the 2023-2024 model.
 
 Usage (Dataproc Serverless or local):
   kmeans_validate.py <trips parquet> <cta_access_by_area.csv> <output folder>
-Outputs (CSV folders): holdout_areas/, holdout_summary/, seed_stability/
+Outputs (CSV folders): seed_stability/, holdout_areas/, holdout_summary/
 """
 import sys
 from collections import Counter
@@ -108,34 +109,37 @@ prep_model = prep.fit(train)  # the scaler only sees the training period
 train_x, test_x = prep_model.transform(train).cache(), prep_model.transform(test).cache()
 evaluator = ClusteringEvaluator(featuresCol="features", predictionCol="cluster")
 
-# 1. Time hold-out
-km = KMeans(k=K, seed=42, featuresCol="features", predictionCol="cluster").fit(train_x)
+# 1. Seed stability on the training period; keep the best of 20 restarts
+fits = []
+for seed in range(1, 21):
+    m = KMeans(k=K, seed=seed, featuresCol="features", predictionCol="cluster").fit(train_x)
+    pred = m.transform(train_x)
+    labels = [r["cluster"] for r in pred.orderBy("area").select("cluster").collect()]
+    fits.append((seed, float(evaluator.evaluate(pred)), labels, m))
+best_seed, sil_train, best_labels, km = max(fits, key=lambda f: f[1])
+seeds = [(seed, sil, float(adjusted_rand(best_labels, labels)))
+         for seed, sil, labels, _ in fits]
+for seed, sil, ari_s in seeds:
+    print(f"seed {seed:2d}: silhouette {sil:.3f}, ARI vs best seed {ari_s:.3f}")
+same_as_best = sum(1 for _, _, ari_s in seeds if ari_s > 0.99)
+print(f"best seed: {best_seed} (silhouette {sil_train:.3f}); {same_as_best}/20 seeds find the same clusters")
+spark.createDataFrame(seeds, ["seed", "silhouette", "adjusted_rand_vs_best"]) \
+    .coalesce(1).write.mode("overwrite").option("header", True).csv(f"{out}/seed_stability")
+
+# 2. Time hold-out with the best 2023-2024 model
 a = km.transform(train_x).select("area", "name", F.col("cluster").alias("cluster_2023_24"))
 b = km.transform(test_x).select("area", F.col("cluster").alias("cluster_2025"))
 areas = a.join(b, "area").withColumn("same", (F.col("cluster_2023_24") == F.col("cluster_2025")).cast("int"))
 rows = areas.orderBy("area").collect()
 same = sum(r["same"] for r in rows)
-sil_train = evaluator.evaluate(km.transform(train_x))
 sil_test = evaluator.evaluate(km.transform(test_x))
 ari = adjusted_rand([r["cluster_2023_24"] for r in rows], [r["cluster_2025"] for r in rows])
 print(f"hold-out: {same}/{len(rows)} areas keep their cluster ({100 * same / len(rows):.1f}%), "
       f"ARI {ari:.3f}, silhouette train {sil_train:.3f}, test {sil_test:.3f}")
 areas.orderBy("area").coalesce(1).write.mode("overwrite").option("header", True).csv(f"{out}/holdout_areas")
-spark.createDataFrame([(K, len(rows), same, same / len(rows), ari, sil_train, sil_test)],
-                      ["k", "areas", "same_cluster", "share_same", "adjusted_rand", "silhouette_train",
-                       "silhouette_test"]) \
+spark.createDataFrame([(K, best_seed, len(rows), same, same / len(rows), ari, sil_train, sil_test)],
+                      ["k", "best_seed", "areas", "same_cluster", "share_same", "adjusted_rand",
+                       "silhouette_train", "silhouette_test"]) \
     .coalesce(1).write.mode("overwrite").option("header", True).csv(f"{out}/holdout_summary")
-
-# 2. Seed stability on the training period
-base = [r["cluster"] for r in km.transform(train_x).orderBy("area").select("cluster").collect()]
-seeds = []
-for seed in range(1, 21):
-    m = KMeans(k=K, seed=seed, featuresCol="features", predictionCol="cluster").fit(train_x)
-    pred = m.transform(train_x)
-    labels = [r["cluster"] for r in pred.orderBy("area").select("cluster").collect()]
-    seeds.append((seed, float(evaluator.evaluate(pred)), float(adjusted_rand(base, labels))))
-    print(f"seed {seed:2d}: silhouette {seeds[-1][1]:.3f}, ARI vs seed 42 {seeds[-1][2]:.3f}")
-spark.createDataFrame(seeds, ["seed", "silhouette", "adjusted_rand_vs_seed42"]) \
-    .coalesce(1).write.mode("overwrite").option("header", True).csv(f"{out}/seed_stability")
 print("saved to", out)
 spark.stop()
