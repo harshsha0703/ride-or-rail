@@ -13,7 +13,57 @@ All analyses use the cleaned trips from `EDA.md` (trips with 0 seconds or 0 mile
 
 ## 1. Demand model (GBT regression)
 
-To be added by Dharmik.
+**Question.** How many rideshare trips will start in each community area in each hour, and can a machine-learning model predict this better than simple rules?
+
+**Method and why it fits.** Gradient-boosted trees for regression (`pyspark.ml.regression.GBTRegressor`, 50 trees, depth 6, learning rate 0.1, 80% row subsampling, `maxBins` 96 so that each of the 77 areas can get its own split). The target is a count with strong, non-linear interactions (the same hour behaves differently by area and day of week), which trees handle without manual feature engineering, and they need no feature scaling. We compare it with two simple baselines that a transit planner could use without a model: the same hour one week earlier, and the average of the same hour over the last 4 weeks.
+
+**Data.** The community area × hour feature table (`src/features/build_area_hour.py`, 2023 onward), expanded to every area × date × hour so that hours with no trips count as 0 (a model trained only on hours with trips would never predict a quiet hour).
+
+**Features.**
+
+| Feature | Why |
+| --- | --- |
+| `area`, `hour`, `dow`, `month`, `is_weekend` | Where and when: the daily and weekly cycle and the season |
+| `is_holiday` | CTA marks Sundays and holidays as "U"; a "U" that is not a Sunday is a holiday |
+| `tmax_c`, `tmin_c`, `prcp_mm`, `snow_mm` | Daily weather at O'Hare (NOAA) |
+| `lag_1d`, `lag_7d`, `avg_4w` | Trips in the same area and hour 1 day, 7 days and on average 1–4 weeks earlier |
+
+We leave out average distance, fare, the `share_*` columns and same-day CTA ridership: they are only known after the hour is over, so using them would leak the answer.
+
+**Train/test split.** By time, not at random: train on Feb 2023 – Jun 2025 (1,628,088 area-hours), test on Jul 2025 – Aug 2026 (789,096 area-hours). A random split would let the model learn from hours after the ones it predicts. January 2023 is used only to build the 4-week lags.
+
+**Metrics.** RMSE (penalizes large misses at busy hours), MAE (typical error in trips per area-hour) and R² on the test period.
+
+**Results** (`src/models/demand_gbt.py`, `notebooks/07_demand_model.ipynb`):
+
+| Model | RMSE | MAE | R² |
+| --- | ---: | ---: | ---: |
+| Baseline: same hour last week | 74.36 | 22.49 | 0.921 |
+| Baseline: average of last 4 weeks | 60.48 | 19.02 | 0.948 |
+| **Gradient-boosted trees** | **53.60** | **18.03** | **0.959** |
+
+![Model metrics](docs/figures/model_metrics.png)
+
+- **The model beats both baselines**: 11.4% lower RMSE and 5.2% lower MAE than the 4-week average. The gain is moderate because demand is very regular (the 4-week average alone explains about 95% of the variation); the larger drop in RMSE shows that the model mainly reduces big misses at busy hours.
+- **Demand is mostly habit.** The 4-week average carries 0.74 of the feature importance, then the previous day (0.06), area (0.05), hour (0.04) and day of week (0.04). All weather features together add only 0.03 and holidays 0.01.
+
+![Feature importance](docs/figures/model_feature_importance.png)
+
+- **It follows the daily cycle but misses unusual hours.** In the first two test weeks it tracks the Near North Side, Austin and O'Hare closely, but it underestimates the July 4 evening in Austin and the return-travel spike at O'Hare on Sunday July 6 (about 1,500 trips against about 850 predicted). One week after the holiday it does better than "same hour last week", which copies the holiday pattern into a normal week.
+
+![Predicted vs actual, first two test weeks](docs/figures/model_two_weeks.png)
+
+- **Errors are about 12–13% of average demand in the busiest areas** (Near North Side 11.8%, Near West Side 12.2%, Loop 12.8%) with almost no bias (Near North Side: 1,417 predicted vs 1,397 actual trips per hour on average). They are larger where demand depends on flights and events: O'Hare 18.8%, Garfield Ridge (Midway) 21.6%, Near South Side (McCormick Place, Soldier Field) 24.2%.
+
+**Limitations.** The model needs the last 4 weeks and the previous day of trips, so it predicts one day ahead, not months ahead. It does not know about events or flight schedules, so it misses holiday and event spikes, and the weather is one station for the whole city.
+
+**How we use it.** The predicted demand per area and hour (`results/model/area_hour_profile.csv`) feeds the hourly demand chart in the dashboard, so a planner can see at which hours a transit-gap area needs service most.
+
+**Spark execution and DAGs.** The model ran on Managed Apache Spark (batch `dpate497-demand-gbt-1124`) on the 2.4 million area-hour rows. Spark builds the full area × date × hour grid with a cross join, fills the lags with window functions partitioned by area and hour (one shuffle), and trains the 50 trees in parallel across the executors.
+
+![Spark DAG of the demand model](docs/figures/ml/dag_demand_query.png)
+
+![Spark jobs](docs/figures/ml/dag_demand_jobs.png)
 
 ## 2. Area clusters (K-means)
 
@@ -160,6 +210,7 @@ O'Hare is left out (an airport with about 16,000 residents). The K-means cluster
 
 | Batch | Script | Submitted by | Duration | Notes |
 | --- | --- | --- | --- | --- |
+| `dpate497-demand-gbt-1124` | `src/models/demand_gbt.py` | Dharmik Patel | about 6 min | 1,628,088 train and 789,096 test area-hours; 350 Spark jobs; 50 trees |
 | `shuss26-kmeans-validate-1123` | `src/models/kmeans_validate.py` (first version: hold-out with seed 42) | Yousuf Hussain | 4 min 24 s | 349 Spark jobs, 469 stages, none failed; showed that seed 42 is a weaker solution (silhouette 0.571) |
 | `shuss26-kmeans-validate-1123b` | `src/models/kmeans_validate.py` (best of 20 seeds) | Yousuf Hussain | 4 min 13 s | 338 Spark jobs, 457 stages; final results in section 2 |
 | `b46bb9c677ee497b8ba2783626a9ce7a` | `src/mining/fpgrowth_routes.py` (M2, Nov 5) | Harsh Shah | about 8 min | 266,341,936 trips for route counts, 26,634,942 baskets; 2,098 itemsets, 4,234 rules; 1.36 DCU-hours |
