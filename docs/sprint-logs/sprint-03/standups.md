@@ -25,7 +25,9 @@ New entries go at the bottom. Copy the block from `templates/standup.md` for eac
 | Team member | Progress since last stand-up | Next action | Blockers |
 | --- | --- | --- | --- |
 | Harsh | Set up the transit-gap score notebook (#16) and the Dash dashboard (#17) on my branch; tested both on Yousuf's population table (#74) | Run the gap score on the full route data and open the PR | Hourly chart in the dashboard needs Dharmik's demand model (#15) |
-| Dharmik | | | |
+git add ML.md
+git commit -m "ML.md: demand model section (#15)"
+git push
 | Yousuf | Reviewed and merged the data selection doc (#75) | Check Piazza for new requirements; review PRs | None |
 
 **Blockers needing follow-up:** (owner, deadline) — or "None identified."
