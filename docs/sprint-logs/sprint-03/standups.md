@@ -43,7 +43,7 @@ git push
 
 | Team member | Progress since last stand-up | Next action | Blockers |
 | --- | --- | --- | --- |
-| Harsh | | | |
+| Harsh | Gap score and dashboard merged (#16, #17, PR #80); Sprint 3 log fixes and kickoff (PR #83); trip-data EDA on Managed Apache Spark (PR #90); FP-Growth hold-out and ML.md sections 3–4 (PR #91, #94) | Board update; hourly demand chart in the dashboard; start Sprint 4 (final report, slides, demo) | None |
 | Dharmik | Demand model (#15) not run yet; branch reset to main | Run demand_gbt.py on Managed Apache Spark on Nov 24, then the notebook and the ML.md section | None |
 | Yousuf | Spark EDA and cleaning for the supporting datasets on Dataproc, with charts and DAG screenshots in EDA.md (#78, PR #79); fixed GitHub usernames in the README and logged Requirement 2 (PR #77); logged Requirements 3 and 4 (PR #84) | Run the Sprint 3 retro on Nov 24; take a part of Requirement 4 (ML.md) | Waiting for my Requirement 4 task |
 
