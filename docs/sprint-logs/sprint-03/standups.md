@@ -14,7 +14,7 @@ New entries go at the bottom. Copy the block from `templates/standup.md` for eac
 
 **Blockers needing follow-up:** (owner, deadline) — or "None identified."
 
-**Plan changes:**
+**Plan changes:** None.
 
 ---
 ## Stand-up – 2026-11-18 (Sprint 03)
@@ -30,8 +30,7 @@ New entries go at the bottom. Copy the block from `templates/standup.md` for eac
 
 **Blockers needing follow-up:** (owner, deadline) — or "None identified."
 
-**Plan changes:**
-
+**Plan changes:** None.
 ---
 
 ## Stand-up – 2026-11-23 (Sprint 03)
