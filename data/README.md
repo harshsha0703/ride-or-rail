@@ -81,3 +81,24 @@ and CTA daily ridership. One row = one pickup community area, date and hour.
 - Dates: 2018-11-01 to 2026-08-31
 - Rows with no weather: 0; rows with no CTA data: 0
 - Built on 2026-11-05; also in the team bucket under features/area_hour
+
+## BigQuery catalog
+
+`src/cloud/bigquery_catalog.py` registers the bucket's files as BigQuery tables in project
+ride-or-rail-123456 (us-central1), so every data set can be browsed and queried in the BigQuery
+Explorer. Parquet and CSV tables are external tables: BigQuery reads the files in the bucket and
+copies nothing. The community-area boundaries are loaded from GeoJSON into a native table with a
+GEOGRAPHY column. The script replaces every table, so rerun it after a Spark job writes new output.
+It needs the BigQuery Data Editor and BigQuery Job User roles.
+
+| Dataset | Tables | Contents |
+| --- | --- | --- |
+| raw | 8 | Source CSVs as downloaded, plus `community_areas` with GEOGRAPHY boundaries |
+| clean | 7 | Supporting sources after Spark cleaning (Parquet) |
+| trips | 3 | Rideshare trips in Parquet, one table per city table, partitioned by year |
+| features | 1 | `area_hour` feature table, partitioned by year |
+| eda | 12 | Spark EDA outputs for the trips and the supporting sources |
+| results | 17 | GBT demand model, K-means, FP-Growth and transit access outputs |
+
+Checked on 2026-11-24: the three trips tables hold 628,189,680 rows and `features.area_hour` holds
+5,258,499 rows, the same counts as above.
