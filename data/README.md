@@ -2,7 +2,7 @@
 
 Nothing in this folder is committed except this file. Download data locally or to cloud storage.
 
-## Rideshare trips (main dataset, ~500M rows, ~100 GB)
+## Rideshare trips (main dataset, 628M rows, 37.8 GB as Parquet)
 
 City of Chicago Data Portal, "Transportation Network Providers - Trips". The city splits it into three tables:
 
