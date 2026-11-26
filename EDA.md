@@ -90,7 +90,7 @@ The typical trip takes 15 minutes, covers 4.1 miles and costs a $12.50 fare. Mos
 | Feature | IQR rule | z-score rule | Decision |
 | --- | --- | --- | --- |
 | Trip time | 4.4% (over 46.7 min) | 1.6% (over 58.9 min) | Keep: long trips are real (airports, suburbs); remove only over 4 hours or ≤ 0 s |
-| Trip distance | 5.9% (over 19.5 mi) | 1.8% (over 29.9 mi) | Keep: the IQR fence would remove every O'Hare trip; remove only over 100 mi or ≤ 0 mi |
+| Trip distance | 5.9% (over 19.5 mi) | 1.8% (over 29.9 mi) | Keep: the IQR fence would remove most long airport and suburb trips; remove only over 100 mi or ≤ 0 mi |
 | Fare | 5.8% (over $38.75) | 1.7% (over $55.10) | Keep for trip counts; leave fares of $0 or above $500 out of price analysis |
 | Tip | 23.0% (every tip above $0) | 2.4% (over $9.24) | Keep: the IQR rule is not meaningful because over 75% of trips have no tip |
 | Additional charges, trip total | 8.1%, 7.3% | 2.0%, 1.9% | Keep: follow fare and distance |
